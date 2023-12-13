@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    env_file:
+      - .env.app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - keycloack
+  keycloack:
+    image: quay.io/keycloak/keycloak:23.0.1
+    command:
+      - "start-dev"
+    env_file:
+      - .env.keycloack
+    ports:
+      - "8080:8080"

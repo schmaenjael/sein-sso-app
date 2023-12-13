@@ -1,0 +1,11 @@
+<%- include('partials/header') -%>
+
+<h1 class="text-4xl mb-4">Welcome <strong><%= username %> </strong></h1>
+
+<p class="py-3">
+  Content of <code class="bg-gray-200">req.user</code>.<br />
+</p>
+
+<pre class="block bg-gray-300 p-4 text-sm overflow-scroll"><%= userProfile %></pre>
+
+<%- include('partials/footer') -%>
