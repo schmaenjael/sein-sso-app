@@ -1,6 +1,6 @@
 import helmet from 'helmet';
 import express from 'express';
-import { auth } from 'express-openid-connect';
+import { ConfigParams, auth } from 'express-openid-connect';
 
 import * as path from 'path';
 import * as dotenv from 'dotenv';
@@ -12,7 +12,17 @@ dotenv.config({ path: `.env.app` });
 
 const app = express();
 const port = process.env.PORT || 3000;
-const authConfig = { authRequired: true, baseURL: process.env.BASE_URL || `http://localhost:${port}` };
+const authConfig: ConfigParams = {
+  authRequired: true,
+  clientSecret: process.env.SECRET,
+  authorizationParams: {
+    response_type: 'code',
+    client_id: process.env.CLIENT_ID,
+    scope: 'openid profile email',
+    audience: 'http://localhost:8080/realms/master/protocol/openid-connect/auth',
+  },
+  baseURL: process.env.BASE_URL || `http://localhost:${port}`,
+};
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
