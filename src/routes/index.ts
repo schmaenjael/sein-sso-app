@@ -11,13 +11,13 @@ router.get('/', (req, res) => {
 });
 
 router.get('/profile', requiresAuth(), (req, res) => {
-  const { email, username, name } = req.oidc.user!;
+  const { email, preferred_username, name } = req.oidc.user!;
 
   res.render('profile', {
     userProfile: JSON.stringify(req.oidc.user, null, 4),
     name,
     email,
-    username,
+    username: preferred_username,
     title: `${req?.oidc?.user?.preferred_username}'s profile page`,
   });
 });
